@@ -3,113 +3,326 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Peter Birchler is a economics student at the University of Zurich">
-  <meta name="author" content="Peter Birchler">
-  <title>Peter Birchler | Economics Student</title>
+  <meta name="description" content="Peter Birchler — economics student at the University of Zurich. Writing on competition, collusion detection and market design." />
+  <meta name="author" content="Peter Birchler" />
+  <title>Peter Birchler — Economics</title>
+
+  <!-- Open Graph: controls how the link previews when you paste it in an email or on LinkedIn -->
+  <meta property="og:title" content="Peter Birchler — Economics" />
+  <meta property="og:description" content="Writing on competition, collusion detection and market design." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.brchlr.ch/" />
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%231B3A5C'/><text y='.9em' x='50%25' text-anchor='middle' font-size='68' font-family='Georgia,serif' fill='white'>B</text></svg>" />
+
   <style>
-    /* Basic reset */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    /* ------------------------------------------------------------------
+       Tokens — same palette and type as the CV, so the two artifacts
+       read as one identity. Change --accent to re-theme everything.
+    ------------------------------------------------------------------ */
+    :root {
+      --paper:    #fdfcfa;
+      --ink:      #1a1a1a;
+      --muted:    #5f6b78;
+      --accent:   #1b3a5c;
+      --hairline: #d4d9de;
+
+      --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+
+      --measure: 40rem;
+      --gutter: 7.5rem;
     }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper:    #15181c;
+        --ink:      #e6e4e1;
+        --muted:    #939ba5;
+        --accent:   #9dbcdd;
+        --hairline: #2c333b;
+      }
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { -webkit-text-size-adjust: 100%; }
 
     body {
-      font-family: Arial, sans-serif;
-      display: flex;
-      min-height: 100vh;
-      color: #333;
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 1.0625rem;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* Sidebar */
-    .sidebar {
-      width: 220px;
-      background-color: #f4f4f4;
-      padding: 20px;
-      border-right: 1px solid #ccc;
-      flex-shrink: 0;
+    .page {
+      max-width: var(--measure);
+      margin: 0 auto;
+      padding: 5.5rem 1.75rem 4rem;
     }
 
-    .sidebar h2 {
-      margin-bottom: 20px;
-      font-size: 1.5rem;
+    /* ------------------------------------------------------------------
+       Header — the name is the whole hero. Nothing competes with it.
+    ------------------------------------------------------------------ */
+    .name {
+      font-size: clamp(2.4rem, 8vw, 3.4rem);
+      line-height: 1.05;
+      font-weight: 700;
+      letter-spacing: -0.018em;
+      color: var(--accent);
+      margin: 0;
     }
 
-    .sidebar nav a {
+    .tagline {
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin: 0.85rem 0 0;
+      letter-spacing: 0.005em;
+    }
+
+    .rule {
+      border: 0;
+      border-top: 1px solid var(--hairline);
+      margin: 2rem 0 0;
+    }
+
+    .intro {
+      margin: 2rem 0 0;
+      color: var(--ink);
+    }
+
+    .intro a { font-weight: 600; }
+
+    /* ------------------------------------------------------------------
+       Sections — small letterspaced label sitting in the left gutter,
+       mirroring the CV's date column. Collapses to a stack on mobile.
+    ------------------------------------------------------------------ */
+    .block {
+      display: grid;
+      grid-template-columns: var(--gutter) 1fr;
+      gap: 0 1.75rem;
+      margin-top: 3.25rem;
+    }
+
+    .block-label {
+      font-family: var(--sans);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0;
+      padding-top: 0.45rem;
+    }
+
+    .block-body { margin: 0; min-width: 0; }
+
+    /* ------------------------------------------------------------------
+       Work list — year and form carried in a hanging line above the
+       title, because both are information a reader actually wants.
+    ------------------------------------------------------------------ */
+    .works { list-style: none; margin: 0; padding: 0; }
+
+    .work + .work {
+      margin-top: 1.9rem;
+      padding-top: 1.9rem;
+      border-top: 1px solid var(--hairline);
+    }
+
+    .work-meta {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--muted);
       display: block;
-      margin-bottom: 12px;
+      margin-bottom: 0.3rem;
+    }
+
+    .work-title {
+      font-size: 1.16rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin: 0;
+    }
+
+    .work-note {
+      margin: 0.4rem 0 0;
+      color: var(--muted);
+      font-size: 0.97rem;
+    }
+
+    /* Links ---------------------------------------------------------- */
+    a {
+      color: var(--accent);
       text-decoration: none;
-      color: #333;
-      font-weight: 600;
-      padding: 6px 8px;
-      border-radius: 4px;
-      transition: background-color 0.2s ease;
+      background-image: linear-gradient(var(--hairline), var(--hairline));
+      background-size: 100% 1px;
+      background-repeat: no-repeat;
+      background-position: 0 100%;
+      transition: background-size 0.18s ease, color 0.18s ease;
     }
 
-    .sidebar nav a:hover {
-      background-color: #ddd;
+    a:hover,
+    a:focus-visible {
+      background-image: linear-gradient(currentColor, currentColor);
+      background-size: 100% 1px;
     }
 
-    /* Main content */
-    .main {
-      flex-grow: 1;
-      padding: 40px;
+    .work-title a {
+      background-size: 0 1px;
+      background-position: 0 100%;
     }
 
-    .main h1 {
-      margin-bottom: 24px;
-      font-size: 2rem;
+    .work-title a:hover,
+    .work-title a:focus-visible {
+      background-image: linear-gradient(currentColor, currentColor);
+      background-size: 100% 1px;
     }
 
-    .main section {
-      margin-bottom: 32px;
+    a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 1px;
+    }
+
+    /* Simple link rows (CV, elsewhere) -------------------------------- */
+    .rows { list-style: none; margin: 0; padding: 0; }
+    .rows li + li { margin-top: 0.55rem; }
+    .rows .aside {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    footer {
+      margin-top: 4.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--hairline);
+      font-family: var(--sans);
+      font-size: 0.76rem;
+      color: var(--muted);
+    }
+
+    /* Mobile ---------------------------------------------------------- */
+    @media (max-width: 34rem) {
+      .page { padding: 3.5rem 1.35rem 3rem; }
+      .block {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        margin-top: 2.75rem;
+      }
+      .block-label { padding-top: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
     }
   </style>
 </head>
+
 <body>
-  <aside class="sidebar">
-    <h2>Peter Birchler</h2>
-    <nav>
-      <a href="index.html" class="sidebar-button">Home</a>
+  <div class="page">
 
-    </nav>
-    
-  </aside>
-
-  <main class="main">
-    <h1>Welcome to my site!</h1>
-
-    <section id="cv">
-      <h2>CV / Resume</h2>
-      <p>
-        You can put a summary here or <a href="your-cv.pdf" target="_blank" rel="noopener">download my CV (PDF)</a>.
+    <header>
+      <h1 class="name">Peter Birchler</h1>
+      <p class="tagline">Economics&nbsp;B.Sc., University of Zurich</p>
+      <hr class="rule" />
+      <p class="intro">
+        I study economics in Zurich and write about competition, collusion
+        detection and market design. Most of what I make ends up here or on
+        <a href="https://birchlermuesli.substack.com/" target="_blank" rel="noopener">Substack</a>.
       </p>
+    </header>
+
+    <section class="block">
+      <h2 class="block-label">Writing</h2>
+      <div class="block-body">
+        <ul class="works">
+
+          <!-- ================================================================
+               THESIS: delete this whole <li> if you'd rather not put the
+               thesis online. If you keep it, drop the PDF in this folder and
+               make sure the filename below matches.
+          ================================================================= -->
+          <li class="work">
+            <span class="work-meta">2026 · Bachelor's thesis</span>
+            <p class="work-title">
+              <a href="Detecting_Collusion_TRQ_Auctions.pdf" target="_blank" rel="noopener">Detecting Collusion in Swiss Meat TRQ Auctions</a>
+            </p>
+            <p class="work-note">
+              Two structurally identical import-quota auctions, one of which
+              clears at near-zero prices. A Kolmogorov–Smirnov screen on
+              market-share changes finds no evidence of collusion; the gap
+              is under-subscription instead.
+            </p>
+          </li>
+
+          <li class="work">
+            <span class="work-meta">May 2025 · Paper</span>
+            <p class="work-title">
+              <a href="Bogey_Teams.pdf" target="_blank" rel="noopener">Efficiently Assigning Bogey Teams</a>
+            </p>
+            <p class="work-note">
+              The 2025 Counter-Strike Blast Bounty tournament let lower-rated
+              teams choose their opponents. Its matchmaking rule doesn't
+              maximise organiser utility — here's one that does.
+            </p>
+          </li>
+
+          <li class="work">
+            <span class="work-meta">March 2025 · Essay</span>
+            <p class="work-title">
+              <a href="https://birchlermuesli.substack.com/p/copy-garys-badeconomics" target="_blank" rel="noopener">Gary's Bad Economics</a>
+            </p>
+            <p class="work-note">
+              Where Gary Stevenson's master's thesis — the basis of much of
+              his public commentary — breaks down.
+            </p>
+          </li>
+
+        </ul>
+      </div>
     </section>
 
-    <section id="works">
-      <h2>My Works</h2>
-      <ul>
-        <li><a href="Bogey_Teams.pdf"target="_blank" rel="noopener">Efficiently Assigning Bogey Teams</a> — Market Design Paper</li>
-        <li><a href="https://birchlermuesli.substack.com/p/copy-garys-badeconomics"target="_blank" rel="noopener">Gary's Bad Economics</a> — Critical Review of Gary Stevensons Master's Thesis</li>
-       
-      </ul>
+    <section class="block">
+      <h2 class="block-label">CV</h2>
+      <div class="block-body">
+        <ul class="rows">
+          <li>
+            <!-- Rename to match whatever you upload -->
+            <a href="Birchler_CV.pdf" target="_blank" rel="noopener">Curriculum vitae (PDF)</a>
+          </li>
+        </ul>
+      </div>
     </section>
 
-    <section id="links">
-      <h2>Other Links</h2>
-      <ul>
-        <li><a href="mailto:ptr.brchlr@gmail.ch">Email Me</a></li>
-        
-      </ul>
+    <section class="block">
+      <h2 class="block-label">Elsewhere</h2>
+      <div class="block-body">
+        <ul class="rows">
+          <li>
+            <a href="https://birchlermuesli.substack.com/" target="_blank" rel="noopener">BirchlerMuesli</a>
+            <span class="aside">— Substack</span>
+          </li>
+          <li>
+            <a href="https://www.reddit.com/r/AskEconomics/" target="_blank" rel="noopener">r/AskEconomics</a>
+            <span class="aside">— moderator</span>
+          </li>
+          <li>
+            <a href="mailto:ptr.brchlr@gmail.com">ptr.brchlr@gmail.com</a>
+          </li>
+        </ul>
+      </div>
     </section>
-  </main>
 
-  
+    <footer>
+      Zurich, Switzerland
+    </footer>
 
-
+  </div>
 </body>
 </html>
-
-
-
-
